@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>RNGesus</title>
+    
+    <style>
+        html,body,.container{
+            background-color:#23272a;
+            height:100%;
+        }
+        *, :after, :before {
+            box-sizing: inherit;
+            user-select: none;
+        }
+        h1,h2,h3,h4,p,span {
+            color:#dcddde;
+        }
+        button {
+            padding: 23px 25px;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #937341;
+            background: linear-gradient(180deg,#ecc572 0,#815500);
+            cursor: pointer;
+            line-height: 1;
+            border: none;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 25px rgba(0,0,0,.11);
+            transition: color .2s;
+            max-width: 100%;
+        }
+        button input{
+            background-color:transparent;
+            border:none;
+            outline:none;
+            color: #937341;
+            text-align:center;
+            width:100%;
+        }
+        button:before{
+            content: "";
+            display: block;
+            position: absolute;
+            background: #111;
+            z-index: -1;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+        }
+        button:active, button:hover {
+            color: #c4b998;
+        }
+        button:disabled {
+        background: #dddddd;
+        color:white;
+        cursor: not-allowed;
+        }
+        textarea:focus{
+            outline:none;
+        }
+        textarea{
+            background: #111;
+            color: #937341;
+            border:solid 2px #815500;
+            resize:none;
+            width:100%;
+            height:60%;
+        }
+    </style>
+  
+  </head>
+  <body>
+      <div class="container text-center">
+            <h1 class="pt-5">RNGesus | <button id="reset" style="padding:10px;font-size:19px;">Zurück Setzen</button></h1>
+        
+            
+
+            <div class="row mt-5" style="height:80%;">
+                    <div class="col-sm">
+                            <button id="role_btn_1"><input type="text" placeholder="Name..."></input></button>
+                            <h2 id="output_1" class="pt-4"></h2>
+                            <textarea id="roles_1" class="mt-4"></textarea>
+                            <button id="save_roles_1">✔️</button>
+                            <button id="delete_roles_1">❌</button>
+                    </div>
+                    <div class="col-sm">
+                            <button id="role_btn_2"><input type="text" placeholder="Name..."></input></button>
+                            <h2 id="output_2" class="pt-4"></h2>
+                            <textarea id="roles_2" class="mt-4"></textarea>
+                            <button id="save_roles_2">✔️</button>
+                            <button id="delete_roles_2">❌</button>
+                    </div>
+                    <div class="col-sm">
+                            <button id="role_btn_3"><input type="text" placeholder="Name..."></input></button>
+                            <h2 id="output_3" class="pt-4"></h2>
+                            <textarea id="roles_3" class="mt-4"></textarea>
+                            <button id="save_roles_3">✔️</button>
+                            <button id="delete_roles_3">❌</button>
+                    </div>
+                    <div class="col-sm">
+                            <button id="role_btn_4"><input type="text" placeholder="Name..."></input></button>
+                            <h2 id="output_4" class="pt-4"></h2>
+                            <textarea id="roles_4" class="mt-4"></textarea>
+                            <button id="save_roles_4">✔️</button>
+                            <button id="delete_roles_4">❌</button>
+                    </div>
+            </div>
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        /** COOKIES **/
+        function createCookie(name, value, days) {
+            var expires;
+
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+            } else {
+                expires = "";
+            }
+            document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
+        }
+
+        function readCookie(name) {
+            var nameEQ = encodeURIComponent(name) + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) === ' ')
+                    c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0)
+                    return decodeURIComponent(c.substring(nameEQ.length, c.length));
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            createCookie(name, "", -1);
+        }
+
+        function shuffle(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
+
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+
+            return array;
+        }
+
+        $( document ).ready(function() {
+
+            $("#reset").on("click", function(){
+                eraseCookie("role1");
+                eraseCookie("role2");
+                eraseCookie("role3");
+                eraseCookie("role4");
+                eraseCookie("role1_name");
+                eraseCookie("role2_name");
+                eraseCookie("role3_name");
+                eraseCookie("role4_name");
+                location.reload();
+            });
+
+            //1
+            if(readCookie("role1") == null){
+                $("#role_btn_1").attr("disabled", true);
+                $("#roles_1").val("Liste Hier Einfügen");
+            } else {
+                $("#role_btn_1").attr("disabled", false);
+                $("#roles_1").val(readCookie("role1"));
+            }
+
+            if(readCookie("role1_name") != null){
+                $("#role_btn_1 input").val(readCookie("role1_name"));
+            }
+
+            $("#role_btn_1 input").on("change", function(){
+                createCookie("role1_name", $("#role_btn_1 input").val(), 365);
+            })
+
+            $("#role_btn_1").on("click", function(){
+                var shuffled = shuffle(document.getElementById("roles_1").value.split("\n"));
+                $("#output_1").html(shuffled[0]);
+            })
+            $("#save_roles_1").on("click", function(){
+                createCookie("role1", $("#roles_1").val(), 365);
+                $("#role_btn_1").attr("disabled", false);
+            })
+            $("#delete_roles_1").on("click", function(){
+                eraseCookie("role1");
+                $("#roles_1").val("");
+            })
+
+            //2
+            if(readCookie("role2") == null){
+                $("#role_btn_2").attr("disabled", true);
+                $("#roles_2").val("Liste Hier Einfügen");
+            } else {
+                $("#role_btn_2").attr("disabled", false);
+                $("#roles_2").val(readCookie("role2"));
+            }
+
+            if(readCookie("role2_name") != null){
+                $("#role_btn_2 input").val(readCookie("role2_name"));
+            }
+
+            $("#role_btn_2 input").on("change", function(){
+                createCookie("role2_name", $("#role_btn_2 input").val(), 365);
+            })
+
+            $("#role_btn_2").on("click", function(){
+                var shuffled = shuffle(document.getElementById("roles_2").value.split("\n"));
+                $("#output_2").html(shuffled[0]);
+            })
+            $("#save_roles_2").on("click", function(){
+                createCookie("role2", $("#roles_2").val(), 365);
+                $("#role_btn_2").attr("disabled", false);
+            })
+            $("#delete_roles_2").on("click", function(){
+                eraseCookie("role2");
+                $("#roles_2").val("");
+            })
+
+            //3
+            if(readCookie("role3") == null){
+                $("#role_btn_3").attr("disabled", true);
+                $("#roles_3").val("Liste Hier Einfügen");
+            } else {
+                $("#role_btn_3").attr("disabled", false);
+                $("#roles_3").val(readCookie("role3"));
+            }
+
+            if(readCookie("role3_name") != null){
+                $("#role_btn_3 input").val(readCookie("role3_name"));
+            }
+
+            $("#role_btn_3 input").on("change", function(){
+                createCookie("role3_name", $("#role_btn_3 input").val(), 365);
+            })
+
+            $("#role_btn_3").on("click", function(){
+                var shuffled = shuffle(document.getElementById("roles_3").value.split("\n"));
+                $("#output_3").html(shuffled[0]);
+            })
+            $("#save_roles_3").on("click", function(){
+                createCookie("role3", $("#roles_3").val(), 365);
+                $("#role_btn_3").attr("disabled", false);
+            })
+            $("#delete_roles_3").on("click", function(){
+                eraseCookie("role3");
+                $("#roles_3").val("");
+            })
+
+            //4
+            if(readCookie("role4") == null){
+                $("#role_btn_4").attr("disabled", true);
+                $("#roles_4").val("Liste Hier Einfügen");
+            } else {
+                $("#role_btn_4").attr("disabled", false);
+                $("#roles_4").val(readCookie("role4"));
+            }
+
+            if(readCookie("role4_name") != null){
+                $("#role_btn_4 input").val(readCookie("role4_name"));
+            }
+
+            $("#role_btn_4 input").on("change", function(){
+                createCookie("role4_name", $("#role_btn_4 input").val(), 365);
+            })
+
+            $("#role_btn_4").on("click", function(){
+                var shuffled = shuffle(document.getElementById("roles_4").value.split("\n"));
+                $("#output_4").html(shuffled[0]);
+            })
+            $("#save_roles_4").on("click", function(){
+                createCookie("role4", $("#roles_41").val(), 365);
+                $("#role_btn_4").attr("disabled", false);
+            })
+            $("#delete_roles_4").on("click", function(){
+                eraseCookie("role4");
+                $("#roles_4").val("");
+            })
+        });
+    </script>
+    </body>
+</html>
