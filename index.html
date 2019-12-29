@@ -190,10 +190,8 @@
 
             //1
             if(readCookie("role1") == null){
-                $("#role_btn_1").attr("disabled", true);
                 $("#roles_1").val("Liste Hier Einfügen");
             } else {
-                $("#role_btn_1").attr("disabled", false);
                 $("#roles_1").val(readCookie("role1"));
             }
 
@@ -220,10 +218,8 @@
 
             //2
             if(readCookie("role2") == null){
-                $("#role_btn_2").attr("disabled", true);
                 $("#roles_2").val("Liste Hier Einfügen");
             } else {
-                $("#role_btn_2").attr("disabled", false);
                 $("#roles_2").val(readCookie("role2"));
             }
 
@@ -250,10 +246,8 @@
 
             //3
             if(readCookie("role3") == null){
-                $("#role_btn_3").attr("disabled", true);
                 $("#roles_3").val("Liste Hier Einfügen");
             } else {
-                $("#role_btn_3").attr("disabled", false);
                 $("#roles_3").val(readCookie("role3"));
             }
 
@@ -280,10 +274,8 @@
 
             //4
             if(readCookie("role4") == null){
-                $("#role_btn_4").attr("disabled", true);
                 $("#roles_4").val("Liste Hier Einfügen");
             } else {
-                $("#role_btn_4").attr("disabled", false);
                 $("#roles_4").val(readCookie("role4"));
             }
 
@@ -300,7 +292,7 @@
                 $("#output_4").html(shuffled[0]);
             })
             $("#save_roles_4").on("click", function(){
-                createCookie("role4", $("#roles_41").val(), 365);
+                createCookie("role4", $("#roles_4").val(), 365);
                 $("#role_btn_4").attr("disabled", false);
             })
             $("#delete_roles_4").on("click", function(){
